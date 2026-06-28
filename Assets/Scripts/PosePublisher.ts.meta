@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/7e06b839-5444-4ccf-b3fe-a3d3a7d15a04>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> d78e34f8-69b1-47d5-a00d-f83d2287f82d
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> d78e34f8-69b1-47d5-a00d-f83d2287f82d
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 133d4250-61e5-48f7-acb7-87f972e4b54a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/133d4250-61e5-48f7-acb7-87f972e4b54a>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 394494e0-80fa-4baa-a926-353cc07581b6
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cameraObject: false
+    deviceOnly: false
+    enableLogging: false
+    internetModule: false
+    reconnectDelaySec: false
+    referenceObject: false
+    sendRateHz: false
+    serverUrl: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - internetModule: !<reference.InternetModule> 00000000-0000-0000-0000-000000000000
+      cameraObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      referenceObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      serverUrl: "ws://127.0.0.1:8765"
+      deviceOnly: true
+      sendRateHz: !<float> 30.000000
+      reconnectDelaySec: !<float> 2.000000
+      enableLogging: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Asset.InternetModule internetModule
+    - // @input SceneObject cameraObject
+    - // @input SceneObject referenceObject
+    - '// @input string serverUrl = "ws://127.0.0.1:8765" {"hint":"Preview: ws://127.0.0.1:8765 | Device: ws://<mac-ip>:8765"}'
+    - '// @input bool deviceOnly {"hint":"If true, only runs on real Specs. Set false to test in Lens Studio preview."}'
+    - // @input float sendRateHz = 30
+    - // @input float reconnectDelaySec = 2
+    - // @input bool enableLogging = true

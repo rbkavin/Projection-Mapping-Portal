@@ -1,0 +1,65 @@
+- !<AssetImportMetadata/e915afe1-0fe8-4036-85a1-99358e8b01e0>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 8dc0391f-0535-45a0-a90f-f1f2f556e1db
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 8dc0391f-0535-45a0-a90f-f1f2f556e1db
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 55a971e4-207b-437f-a7d7-6d7616c3114a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/55a971e4-207b-437f-a7d7-6d7616c3114a>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: ec6427f0-3db7-4228-a1d4-3fa0427fd9f2
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    buttonGap: false
+    calibrationPanel: false
+    confirmButtonObject: false
+    controllerObject: false
+    reticle: false
+    statusTextObject: false
+    stepDotsObject: false
+    undoButtonObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - controllerObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      calibrationPanel: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      statusTextObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      stepDotsObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      reticle: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      confirmButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      undoButtonObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      buttonGap: 0.250000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject controllerObject {"hint":"SceneObject that has ProjectionMappingController on it"}'
+    - '// @input SceneObject calibrationPanel {"hint":"The whole onboarding UI panel (Frame). Hidden after confirm."}'
+    - '// @input SceneObject statusTextObject {"hint":"Main instruction / status text"}'
+    - '// @input SceneObject stepDotsObject {"hint":"Step dots counter  ● ● ○ ○"}'
+    - '// @input SceneObject reticle {"hint":"Small visual that follows the wall hit point while calibrating"}'
+    - '// @input SceneObject confirmButtonObject {"hint":"RectangleButton shown in CONFIRMING state to lock and go live"}'
+    - '// @input SceneObject undoButtonObject {"hint":"RectangleButton to undo the last placed corner (optional)"}'
+    - '// @input float buttonGap = 5 {"hint":"Vertical gap between Confirm (top) and Undo (bottom), in scene units"}'

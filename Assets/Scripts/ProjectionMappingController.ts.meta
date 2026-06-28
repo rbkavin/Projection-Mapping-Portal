@@ -1,0 +1,80 @@
+- !<AssetImportMetadata/30905541-1e85-48db-af3a-59ad7478855f>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 3de42c57-4bd3-471e-951a-5b483e9fb442
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 3de42c57-4bd3-471e-951a-5b483e9fb442
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 74dcb7ae-ec45-4864-8876-e12a7c026362
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/74dcb7ae-ec45-4864-8876-e12a7c026362>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 2f9d5e28-a244-4e10-bd7d-64e75f1449fa
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    cameraObject: false
+    cornerBL: false
+    cornerBR: false
+    cornerTL: false
+    cornerTR: false
+    debugShowCalibration: false
+    deviceOnly: false
+    enableLogging: false
+    internetModule: false
+    mode: false
+    reconnectDelaySec: false
+    sendRateHz: false
+    serverUrl: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - internetModule: !<reference.InternetModule> 00000000-0000-0000-0000-000000000000
+      cameraObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      cornerTL: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      cornerTR: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      cornerBR: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      cornerBL: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      serverUrl: "ws://127.0.0.1:8765"
+      deviceOnly: false
+      mode: calibrate
+      sendRateHz: !<float> 30.000000
+      reconnectDelaySec: !<float> 2.000000
+      enableLogging: true
+      debugShowCalibration: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Asset.InternetModule internetModule
+    - // @input SceneObject cameraObject
+    - '// @input SceneObject cornerTL {"hint":"Visual marker for top-left corner — positioned at runtime via pinch"}'
+    - '// @input SceneObject cornerTR {"hint":"Visual marker for top-right corner — positioned at runtime via pinch"}'
+    - '// @input SceneObject cornerBR {"hint":"Visual marker for bottom-right corner — positioned at runtime via pinch"}'
+    - '// @input SceneObject cornerBL {"hint":"Visual marker for bottom-left corner — positioned at runtime via pinch"}'
+    - '// @input string serverUrl = "ws://127.0.0.1:8765" {"hint":"Preview: ws://127.0.0.1:8765 | Device: ws://<mac-ip>:8765"}'
+    - '// @input bool deviceOnly {"hint":"If true, only runs on real Specs (not Lens Studio preview)"}'
+    - '// @input string mode = "calibrate" {"widget":"combobox", "values":[{"label":"Calibrate (move corners)", "value":"calibrate"}, {"label":"Show (hide corners, stream)", "value":"show"}]}'
+    - // @input float sendRateHz = 30
+    - // @input float reconnectDelaySec = 2
+    - // @input bool enableLogging = true
+    - '// @input bool debugShowCalibration {"hint":"Show mode only: reveal corners + green quad outline to verify alignment"}'

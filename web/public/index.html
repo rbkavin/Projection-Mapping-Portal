@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#060b0f" />
+    <title>Portal Studio · RBKAVIN.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <!-- 3D canvas -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Portal frame overlay -->
+    <img id="portal-frame" src="/assets/portal-frame.png" alt="" />
+
+    <!-- ── Splash ──────────────────────────────────────────────────────────── -->
+    <div id="splash">
+      <div class="splash-card">
+
+        <div class="splash-eyebrow">Snap Spectacles · Open Source</div>
+        <h1 class="splash-title">Portal Studio</h1>
+        <p class="splash-desc">An AR portal illusion that follows your head. Point your Spectacles at a projector, place the portal on a wall, and step through.</p>
+        <div class="splash-steps">
+          <div class="splash-step">
+            <div class="step-n">1</div>
+            <div>
+              <strong>Connect Spectacles</strong>
+              <span>Open the companion Lens. Same Wi-Fi network required.</span>
+            </div>
+          </div>
+          <div class="splash-step">
+            <div class="step-n">2</div>
+            <div>
+              <strong>Calibrate the portal</strong>
+              <span>Point Spectacles at the projected image — corners lock automatically.</span>
+            </div>
+          </div>
+          <div class="splash-step">
+            <div class="step-n">3</div>
+            <div>
+              <strong>Build your scene</strong>
+              <span>Click <strong>Edit</strong> to upload a 3D model, swap the portal frame, or change the sky.</span>
+            </div>
+          </div>
+        </div>
+        <div class="splash-url-block">
+          <span class="splash-url-label">Spectacles Lens URL</span>
+          <div class="splash-url-row">
+            <code id="splash-ws-url" class="splash-url-code">detecting…</code>
+            <button id="splash-copy-btn" class="splash-copy-btn" title="Copy">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button id="splash-start">Open Portal</button>
+        <p class="splash-credit">Built by <a href="https://rbkavin.studio/k/" target="_blank" rel="noopener">RBKAVIN.</a></p>
+      </div>
+    </div>
+
+    <!-- ── Drag-and-drop overlay ──────────────────────────────────────────── -->
+    <div id="drop-overlay">
+      <div class="drop-inner">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M12 3v13M7 8l5-5 5 5M3 18h18M3 21h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Drop GLB / GLTF to load</span>
+      </div>
+    </div>
+
+    <!-- ── Status pill (always visible, top-right) ────────────────────────── -->
+    <div id="topbar">
+      <div id="status-pill">
+        <span id="status-dot"></span>
+        <span id="status-text">Offline</span>
+      </div>
+      <div id="topbar-actions">
+        <button id="fs-btn" class="topbar-btn" title="Fullscreen [F]">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </button>
+        <button id="edit-toggle" class="edit-btn">
+          Edit
+          <kbd>T</kbd>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Edit sidebar ───────────────────────────────────────────────────── -->
+    <aside id="sidebar">
+      <div class="sidebar-scroll">
+
+        <!-- Model -->
+        <section class="sb-section">
+          <header class="sb-header">
+            <span class="sb-label">Model</span>
+            <span id="sb-loading" class="sb-loading" hidden>loading…</span>
+          </header>
+          <div class="preset-grid" id="preset-grid">
+            <button class="preset-btn" data-model="0">Isometric Room</button>
+            <button class="preset-btn" data-model="1" id="tp-custom-btn" disabled>Custom</button>
+          </div>
+          <label class="upload-zone" for="model-upload">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1v10M3.5 5l4-4 4 4M1 13h13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Upload GLB / GLTF
+            <input id="model-upload" type="file" accept=".glb,.gltf" hidden />
+          </label>
+          <p id="tp-upload-name" class="upload-hint">or drag &amp; drop anywhere</p>
+        </section>
+
+        <div class="sb-divider"></div>
+
+        <!-- Appearance -->
+        <section class="sb-section">
+          <header class="sb-header">
+            <span class="sb-label">Appearance</span>
+          </header>
+
+          <div class="field-row">
+            <label class="field-label">Sky colour</label>
+            <div class="field-control">
+              <input type="color" id="sky-color" value="#060c14" class="color-swatch" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">Exposure</label>
+            <div class="field-control slider-control">
+              <input type="range" id="exposure-slider" min="0.4" max="2.5" step="0.05" value="1.15" />
+              <span id="exposure-val">1.15</span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">Bounds X</label>
+            <div class="field-control slider-control">
+              <input type="range" id="bounds-x" min="0.0" max="1.5" step="0.05" value="0.45" />
+              <span id="bounds-x-val">45%</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <label class="field-label">Bounds Y</label>
+            <div class="field-control slider-control">
+              <input type="range" id="bounds-y" min="0.0" max="1.5" step="0.05" value="0.45" />
+              <span id="bounds-y-val">45%</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <label class="field-label">Bounds Z</label>
+            <div class="field-control slider-control">
+              <input type="range" id="bounds-z" min="0.0" max="2.0" step="0.05" value="0.2" />
+              <span id="bounds-z-val">0.20m</span>
+            </div>
+          </div>
+
+          <div class="sb-divider-thin"></div>
+
+          <div class="field-row">
+            <label class="field-label">Portal frame</label>
+            <div class="field-control field-actions">
+              <label class="action-btn" for="frame-upload">Upload image / GIF</label>
+              <input id="frame-upload" type="file" accept="image/*" hidden />
+              <button id="frame-reset-btn" class="action-btn-ghost">Reset</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="sb-divider"></div>
+
+        <!-- Transform -->
+        <section class="sb-section">
+          <header class="sb-header">
+            <span class="sb-label">Transform</span>
+            <button id="gizmo-reset-btn" class="header-action-btn">Reset</button>
+            <button id="gizmo-focus-btn" class="header-action-btn">Focus</button>
+          </header>
+
+          <div class="vec3-group">
+            <span class="vec3-label">POS</span>
+            <div class="vec3-fields">
+              <label class="vec3-field">
+                <span class="axis x">X</span>
+                <input id="tf-px" type="number" step="0.05" />
+              </label>
+              <label class="vec3-field">
+                <span class="axis y">Y</span>
+                <input id="tf-py" type="number" step="0.05" />
+              </label>
+              <label class="vec3-field depth">
+                <span class="axis z">D</span>
+                <input id="tf-pz" type="number" step="5" />
+                <em>cm</em>
+              </label>
+            </div>
+          </div>
+
+          <div class="vec3-group">
+            <span class="vec3-label">ROT</span>
+            <div class="vec3-fields">
+              <label class="vec3-field">
+                <span class="axis x">X</span>
+                <input id="tf-rx" type="number" step="5" />
+                <em>°</em>
+              </label>
+              <label class="vec3-field">
+                <span class="axis y">Y</span>
+                <input id="tf-ry" type="number" step="5" />
+                <em>°</em>
+              </label>
+              <label class="vec3-field">
+                <span class="axis z">Z</span>
+                <input id="tf-rz" type="number" step="5" />
+                <em>°</em>
+              </label>
+            </div>
+          </div>
+
+          <div class="vec3-group">
+            <span class="vec3-label">SCL</span>
+            <div class="vec3-fields">
+              <label class="vec3-field wide">
+                <input id="tf-sc" type="number" step="0.0001" min="0.000001" />
+              </label>
+            </div>
+          </div>
+
+          <div class="gizmo-bar">
+            <button class="gizmo-btn active" data-mode="translate">Move <kbd>G</kbd></button>
+            <button class="gizmo-btn" data-mode="rotate">Rotate <kbd>R</kbd></button>
+            <button class="gizmo-btn" data-mode="scale">Scale</button>
+          </div>
+        </section>
+
+        <div class="sb-divider"></div>
+
+        <!-- Connection log -->
+        <section class="sb-section sb-section-log">
+          <header class="sb-header">
+            <span class="sb-label">Connection</span>
+          </header>
+          <div class="relay-row">
+            <input id="relay-url-input" class="relay-input" type="text" spellcheck="false" placeholder="ws://localhost:8080" />
+            <button id="relay-connect-btn" class="action-btn">Connect</button>
+          </div>
+          <div id="specs-hint" class="specs-hint" hidden>Spectacles Lens → <code id="specs-url"></code></div>
+          <div id="debug-log" class="log-line">waiting for relay…</div>
+          <div id="pose-info" class="log-line log-dim"></div>
+          <div class="diag-row">
+            <button id="debug-btn" class="diag-btn">Show calibration markers</button>
+          </div>
+        </section>
+
+      </div>
+
+      <footer class="sb-footer">
+        <span>T exit · G move · R rotate · [ ] scale</span>
+        <span class="sb-credit">by <a href="https://rbkavin.studio/k/" target="_blank" rel="noopener">RBKAVIN.</a></span>
+      </footer>
+    </aside>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.172.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.172.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="/app.js?v=rbkavin-brand"></script>
+  </body>
+</html>

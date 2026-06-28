@@ -1,0 +1,13 @@
+{
+  "name": "projection-mapping-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WebSocket relay + Three.js viewer for Specs pose streaming",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
